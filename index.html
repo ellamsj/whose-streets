@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whose Names Line Our Streets</title>
+  <meta name="description" content="Every street named after a person in ten European cities, laid on top of each other. About 9 in 10 honour a man.">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <main class="board">
+
+    <!-- LEFT · brief explanation, key figure, controls -->
+    <section class="side" aria-labelledby="title">
+      <h1 id="title" class="title">Whose names line our streets</h1>
+      <p class="intro">Every street named after a person, from ten European cities.</p>
+
+      <div class="figure" aria-live="polite">
+        <p class="figure__num" id="fig-num">9.0%</p>
+        <p class="figure__label" id="fig-label">of streets named after people honour a woman, across 30 European cities.</p>
+        <div class="figure__bar" id="fig-bar" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Controls">
+      <fieldset class="seg" id="view-toggle">
+        <legend class="label">View</legend>
+        <label><input type="radio" name="view" value="map" checked><span>Map</span></label>
+        <label><input type="radio" name="view" value="stack"><span>Stacked</span></label>
+      </fieldset>
+
+      <fieldset class="seg" id="hl-toggle">
+        <legend class="label">Highlight</legend>
+        <label><input type="radio" name="hl" value="all" checked><span>All</span></label>
+        <label><input type="radio" name="hl" value="woman"><span>Women</span></label>
+        <label><input type="radio" name="hl" value="man"><span>Men</span></label>
+      </fieldset>
+
+      <div class="legend-box">
+        <ul class="legend" aria-label="Line colours">
+          <li><span class="key key--man"></span>Named after a man</li>
+          <li><span class="key key--woman"></span>Named after a woman</li>
+        </ul>
+        <p class="legend__note">1 line = 1 street · click one to pin it</p>
+      </div>
+    </section>
+
+    <!-- CENTRE · the field -->
+    <section class="stage" aria-label="Streets named after people">
+      <div class="stage__bar">
+        <p class="stage__caption label" id="stage-caption" aria-live="polite"></p>
+        <button class="index-btn" id="index-btn" type="button" aria-expanded="false" aria-controls="drawer">Index<span aria-hidden="true"> ↗</span></button>
+      </div>
+      <div class="stage__frame">
+        <canvas id="field" role="img" aria-label="Streets named after people in ten European cities, drawn on top of each other and coloured by the gender of the person they honour."></canvas>
+        <div class="tooltip" id="tooltip" role="dialog" aria-label="Street details" hidden></div>
+      </div>
+      <button class="focus-chip" id="focus-chip" type="button" hidden></button>
+    </section>
+
+    <!-- BOTTOM · city views -->
+    <nav class="cities" aria-label="City views">
+      <ul id="thumbs"></ul>
+    </nav>
+
+    <!-- HIDDEN LAYER · index of women and cities -->
+    <aside class="drawer" id="drawer" aria-labelledby="drawer-title" inert>
+      <div class="drawer__head">
+        <h2 id="drawer-title" class="drawer__title">Index</h2>
+        <button class="drawer__close" id="drawer-close" type="button" aria-label="Close index">Close</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Index">
+        <button role="tab" id="tab-women" aria-controls="panel-women" aria-selected="true" type="button">Women honoured</button>
+        <button role="tab" id="tab-cities" aria-controls="panel-cities" aria-selected="false" type="button" tabindex="-1">30 cities</button>
+      </div>
+
+      <div class="panel" id="panel-women" role="tabpanel" aria-labelledby="tab-women">
+        <p class="panel__note" id="women-note"></p>
+        <ol class="women" id="women"></ol>
+      </div>
+
+      <div class="panel" id="panel-cities" role="tabpanel" aria-labelledby="tab-cities" hidden>
+        <p class="panel__note">Share of person-named streets that honour women.</p>
+        <div class="rank-axis label" aria-hidden="true"><span></span><span><i>0</i><i>25</i><i>50%</i></span></div>
+        <ol class="ranking" id="ranking" aria-label="30 cities ranked by the share of person-named streets that honour women"></ol>
+        <p class="panel__note"><span class="mapped-mark" aria-hidden="true">◆</span> drawn on the map · dashed line = equal</p>
+      </div>
+    </aside>
+
+    <footer class="foot">
+      <details>
+        <summary>About the data</summary>
+        <div class="foot__body">
+          <p>Percentages count only streets named after individuals, not all streets. The 30-city figures come from <a href="https://www.europeandatajournalism.eu/?p=226746">Mapping Diversity</a> (European Data Journalism Network, data extracted February 2023). In those cities, <span id="about-persons">52,888</span> streets honour people: <span id="about-men">47,824</span> men, <span id="about-women">4,779</span> women and <span id="about-other">285</span> mixed, non-binary or uncertain. Gender comes from Wikidata, or from first names where Wikidata had none.</p>
+          <p>The lines are drawn from <a href="https://equalstreetnames.org/">EqualStreetNames</a> (Open Knowledge Belgium, downloaded November 2026). Street names are shown exactly as they appear in <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, in the local language. Each street's namesake comes from its link to <a href="https://www.wikidata.org/">Wikidata</a>; the person's name and description are Wikidata's English text. Streets named after several people, or a person whose gender is not recorded, are drawn in grey. EqualStreetNames maps fewer cities than Mapping Diversity, and some only in part, so its line counts differ from the 30-city figures. Each city is scaled to the same size.</p>
+          <p>Source data, build scripts and full citations are in the project folder. This page collects nothing and loads nothing from outside its own files.</p>
+        </div>
+      </details>
+    </footer>
+  </main>
+</body>
+</html>
